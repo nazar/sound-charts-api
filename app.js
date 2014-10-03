@@ -1,9 +1,20 @@
 'use strict';
 
+if (typeof(PhusionPassenger) !== 'undefined') {
+    PhusionPassenger.configure({ autoInstall: false });
+}
+
 var Hapi = require( 'hapi' );
 var ioC = require( './ioc' );
 
-var server = new Hapi.Server( 8000 );
+var server;
+
+if (typeof(PhusionPassenger) !== 'undefined') {
+    // Requires Phusion Passenger >= 4.0.52!
+    server = new Hapi.Server('/passenger');
+} else {
+    server = new Hapi.Server( 8000 );
+}
 
 var options = {
     subscribers: {
@@ -12,7 +23,7 @@ var options = {
 };
 
 if ( process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production' ) {
-    options.subscribers[ './log/' ] = ['ops', 'request', 'log', 'error'];
+    options.subscribers[ './log/' ] = ['request', 'log', 'error'];
 }
 
 server.pack.register({
