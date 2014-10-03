@@ -1,0 +1,30 @@
+{
+  "name": "Sounds_Charts_Api",
+  "version": "0.0.1",
+  "description": "Sound Charts API Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "./node_modules/lab/bin/lab"
+  },
+  "author": "Nazar Aziz",
+  "license": "Public Domain",
+  "dependencies": {
+    "bluebird": "2.3.2",
+    "bookshelf": "0.7.7",
+    "boom": "2.5.1",
+    "electrolyte": "0.0.3",
+    "good": "2.2.3",
+    "hapi": "6.2.2",
+    "joi": "4.6.1",
+    "knex": "0.6.22",
+    "lodash": "2.4.1",
+    "moment": "2.8.1",
+    "multiline": "0.3.4",
+    "nconf": "0.6.9",
+    "pg": "3.4.0",
+    "restler": "3.2.2"
+  },
+  "devDependencies": {
+    "lab": "3.2.3"
+  }
+}

@@ -1,0 +1,19 @@
+{
+    "soundcloud": {
+        "clientId": "172d3d3f96adbdfe8265bb0f06e6883b",
+        "playbackCountCutoff": 2000,
+        "maxIterations": 100,
+        "iterationInterval": 2000
+    },
+
+    "db": {
+        "debug": true,
+        "client": "postgresql",
+        "connection": {
+            "host": "localhost",
+            "user": "postgres",
+            "database": "sound",
+            "password": "password"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+.idea
+.bundle
+
+node_modules
+
+logs
+vendor
+
+Gemfile.lock
