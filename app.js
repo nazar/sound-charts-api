@@ -12,7 +12,7 @@ var options = {
 };
 
 if ( process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production' ) {
-    options.subscribers[ './logs/' ] = ['ops', 'request', 'log', 'error'];
+    options.subscribers[ './log/' ] = ['ops', 'request', 'log', 'error'];
 }
 
 server.pack.register({
