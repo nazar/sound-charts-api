@@ -7,6 +7,8 @@ if (typeof(PhusionPassenger) !== 'undefined') {
 var Hapi = require( 'hapi' );
 var ioC = require( './ioc' );
 
+var production = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production';
+
 var server;
 
 if (typeof(PhusionPassenger) !== 'undefined') {
@@ -18,12 +20,13 @@ if (typeof(PhusionPassenger) !== 'undefined') {
 
 var options = {
     subscribers: {
-        'console': ['request', 'log', 'error']
     }
 };
 
-if ( process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production' ) {
+if ( production ) {
     options.subscribers[ './log/' ] = ['request', 'log', 'error'];
+} else {
+    options.subscribers.console = ['request', 'log', 'error'];
 }
 
 server.pack.register({
@@ -41,7 +44,7 @@ ioC.literal( 'server', server );
 
 ioC.create( 'routes/index' );
 
-if ( !module.parent ) {
+if ( production || !module.parent ) {
 
     server.start( function(){
         console.log( 'Server started', server.info.uri );
