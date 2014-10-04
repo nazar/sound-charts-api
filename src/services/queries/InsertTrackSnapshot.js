@@ -38,10 +38,11 @@ exports = module.exports = function( knex ){
 
             tracks_to_snapshot as (
               select tracks.*
-              from tracks, inputs
-              where not exists (
-                select 1 from snapshots inner join tracks on
-                  snapshots.track_id = tracks.id and snapshots.snapshot_date = inputs.snapshot_date
+              from tracks
+              where tracks.id not in (
+                select track_id
+                from snapshots, inputs
+                where snapshots.snapshot_date = inputs.snapshot_date
               )
             ),
 
@@ -104,10 +105,6 @@ exports = module.exports = function( knex ){
 
             from
               snapshot_tracks
-            order by
-              snapshot_tracks.playback_count_delta DESC
-            limit 1000
-
 
           */
         } );

@@ -2,10 +2,10 @@ var moment = require( 'moment' );
 
 var ioc = require( '../ioc' );
 
-var BatchImportSoundcloudTracks = ioc.create( 'services/db/BatchImportSoundcloudTracks' );
-var UpdateTopTracks             = ioc.create( 'services/db/UpdateTopTracks' );
-var InsertTrackSnapshot         = ioc.create( 'services/queries/InsertTrackSnapshot' );
-var InsertTrackCharts           = ioc.create( 'services/queries/InsertTrackCharts' );
+var BatchImportSoundcloudTracks    = ioc.create( 'services/db/BatchImportSoundcloudTracks' );
+var UpdateTopTracks                = ioc.create( 'services/db/UpdateTopTracks' );
+var InsertTrackSnapshot            = ioc.create( 'services/queries/InsertTrackSnapshot' );
+var InsertTrackCharts              = ioc.create( 'services/queries/InsertTrackCharts' );
 
 var fromDate = moment.utc().subtract(7, 'days' ).format( 'YYYY-MM-DD' );
 var toDate = moment.utc().subtract(6, 'days' ).format( 'YYYY-MM-DD' );
@@ -15,7 +15,7 @@ var toDate = moment.utc().subtract(6, 'days' ).format( 'YYYY-MM-DD' );
 
     updateTopTracks()
         .then( importSoundCloudTracks )
-        .then( takeSnapshot )
+        .then( buildSnapshot )
         .then( buildCharts )
         .then( done )
         .catch( bail );
@@ -25,10 +25,7 @@ var toDate = moment.utc().subtract(6, 'days' ).format( 'YYYY-MM-DD' );
     function updateTopTracks() {
         var service;
 
-        service = new UpdateTopTracks( {
-            chartDate: fromDate,
-            toDate: toDate
-        } );
+        service = new UpdateTopTracks();
 
         return service.execute();
     }
@@ -45,7 +42,7 @@ var toDate = moment.utc().subtract(6, 'days' ).format( 'YYYY-MM-DD' );
         return service.execute();
     }
 
-    function takeSnapshot(){
+    function buildSnapshot(){
         var qry;
 
         qry = new InsertTrackSnapshot( {

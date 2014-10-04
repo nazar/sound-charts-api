@@ -14,9 +14,6 @@ exports = module.exports = function( config, Track, SoundCloudTracksByIdsGetter,
     function UpdateTopTracks( options ){
         var opt = _.extend( {}, options );
 
-        this.chartDate = opt.chartDate;
-        this.toDate = opt.toDate;
-
         this.topLimit = opt.topLimit || 1000;
 
         this.chartTracks = null;
