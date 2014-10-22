@@ -20,6 +20,7 @@ exports = module.exports = function( config, TrackUpdateOrCreateFromSoundCloud, 
         this.toDate = opt.toDate;
 
         this.playbackCountCutoff = opt.playbackCountCutoff || config.soundcloud.playbackCountCutoff || 5000;
+        this.durationCutoff = opt.durationCutoff || 30000;
     }
 
 
@@ -36,7 +37,7 @@ exports = module.exports = function( config, TrackUpdateOrCreateFromSoundCloud, 
 
                 _( tracks )
                     .each( function( track ){
-                        if ( Number( track.playback_count ) > this.playbackCountCutoff ) {
+                        if ( shouldImportTrack.call( this, track ) ) {
                             updateOrCreate.call( this, track );
                         }
                     }, this );
@@ -59,6 +60,11 @@ exports = module.exports = function( config, TrackUpdateOrCreateFromSoundCloud, 
         service = new TrackUpdateOrCreateFromSoundCloud( track );
 
         return service.execute();
+    }
+
+    function shouldImportTrack( track ){
+        return ( Number( track.playback_count ) > this.playbackCountCutoff ) &&
+            ( Number( track.duration ) > this.durationCutoff );
     }
 
     //////////////////////////////////////

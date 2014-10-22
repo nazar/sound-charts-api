@@ -144,11 +144,11 @@ exports = module.exports = function( config, promiser ){
 
             url = [
                 this.baseUrl,
-                    'limit=' + this.limit,
-                    'created_at[from]=' + momentToTimeStamp( this.fromDate ),
-                    'created_at[to]=' + momentToTimeStamp( this.toDate ),
+                'limit=' + this.limit,
+                'created_at[from]=' + momentToTimeStamp( this.fromDate ),
+                'created_at[to]=' + momentToTimeStamp( this.toDate ),
                 'filter=public',
-                    'offset=' + this.offset
+                'offset=' + this.offset
             ].join( '&' );
 
             //todo replace with a logger
