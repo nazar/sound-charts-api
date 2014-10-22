@@ -28,9 +28,6 @@ var promiser = function(){
     };
 };
 
-module.exports = promiser;
-
-
 function defer(){
     var resolve;
     var reject;
@@ -46,3 +43,5 @@ function defer(){
         promise: promise
     };
 }
+
+exports = module.exports = promiser;

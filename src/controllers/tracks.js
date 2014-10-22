@@ -1,10 +1,16 @@
-exports = module.exports = function( Track, responderJson ){
+exports = module.exports = function(
+    Track,
+    GetTrackSnapshots,
+    responderJson,
+    responderQry
+    ){
+    'use strict';
 
     return {
 
         list: function( request, reply ){
 
-            responderJson( Track, reply, function () {
+            responderJson( Track, reply, function(){
                 return Track
                     .query( function( k ){
                         k.limit( request.query.limit );
@@ -17,7 +23,7 @@ exports = module.exports = function( Track, responderJson ){
 
         get: function( request, reply ){
 
-            responderJson( Track, reply, function () {
+            responderJson( Track, reply, function(){
                 return Track
                     .forge( {
                         id: request.params.id
@@ -25,8 +31,19 @@ exports = module.exports = function( Track, responderJson ){
                     .fetch( { require: true } );
             }, this );
 
+        },
+
+        snapshots: function( request, reply ){
+            var qry;
+
+            qry = new GetTrackSnapshots( {
+                trackId: request.params.id
+            } );
+
+            responderQry( qry, reply );
+
         }
-    }
+    };
 
 
 };
@@ -34,5 +51,7 @@ exports = module.exports = function( Track, responderJson ){
 exports['@singleton'] = true;
 exports['@require'] = [
     'models/Track',
-    'utils/responderJson'
+    'services/queries/GetTrackSnapshots',
+    'utils/responderJson',
+    'utils/responderQry'
 ];

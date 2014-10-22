@@ -34,10 +34,26 @@ exports = module.exports = function( TracksController ){
         };
     }
 
+    function snapshots(){
+        return {
+            method: 'GET',
+            path: '/api/tracks/{id}/snapshots',
+            config: {
+                handler: TracksController.snapshots,
+                validate: {
+                    params: {
+                        id: Joi.number().min( 0 ).required()
+                    }
+                }
+            }
+        };
+    }
+
 
     function register( server ){
         server.route( list() );
         server.route( get() );
+        server.route( snapshots() );
     }
 
     return {

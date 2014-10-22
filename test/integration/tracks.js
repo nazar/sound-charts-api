@@ -30,7 +30,22 @@ Lab.experiment( 'Tracks REST', function(){
         Lab.test( 'GET track should return a specific track', function ( done ) {
 
             server.inject( {
-                url: '/api/tracks/7752'
+                url: '/api/tracks/9663'
+            }, function( response ){
+                var result = response.result;
+
+                Lab.expect( response.statusCode ).to.equal( 200 );
+                Lab.expect( result ).to.be.instanceof( Object );
+
+                done();
+            } );
+
+        } );
+
+        Lab.test( 'GET track should return a specific track\'s snapshots', function ( done ) {
+
+            server.inject( {
+                url: '/api/tracks/9663/snapshots'
             }, function( response ){
                 var result = response.result;
 
