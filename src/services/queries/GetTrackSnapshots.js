@@ -32,6 +32,7 @@ exports = module.exports = function( knex ){
 
             select
               charts.rank_playback_count,
+              charts.rank_favoritings_count,
               snapshots.playback_count,
               snapshots.playback_count_delta,
               snapshots.snapshot_date
