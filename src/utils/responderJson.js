@@ -11,7 +11,7 @@
 
 var Boom = require( 'boom' );
 
-var responder = function(){
+var responderJson = function(){
     'use strict';
 
     return function( Model, reply, block, context ){
@@ -33,4 +33,4 @@ var responder = function(){
     };
 };
 
-module.exports = responder;
+exports = module.exports = responderJson;

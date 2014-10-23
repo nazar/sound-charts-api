@@ -21,4 +21,4 @@ var assigner = function() {
 
 };
 
-module.exports = assigner;
+exports = module.exports = assigner;

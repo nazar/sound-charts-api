@@ -15,4 +15,4 @@ var catcher = function(){
     };
 };
 
-module.exports = catcher;
+exports = module.exports = catcher;
