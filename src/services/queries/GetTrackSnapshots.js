@@ -35,7 +35,7 @@ exports = module.exports = function( knex ){
               charts.rank_favoritings_count,
               snapshots.playback_count,
               snapshots.playback_count_delta,
-              snapshots.snapshot_date
+              snapshots.snapshot_date + INTERVAL '6 day' as snapshot_date
             from charts
               inner join inputs
                   on charts.track_id = inputs.track_id
